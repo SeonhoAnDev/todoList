@@ -3,6 +3,7 @@ package com.example.todolist;
 import com.example.todolist.event.*;
 import com.example.todolist.event.update.UpdataMeeting;
 import com.example.todolist.reader.EventCsvReader;
+import com.example.todolist.reader.RawCsvReader;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.IOException;
@@ -18,7 +19,7 @@ public class TodoListApplication {
 
 	public static void main(String[] args) throws IOException {
 		Schedule schedule = new Schedule();
-		EventCsvReader csvReader = new EventCsvReader();
+		EventCsvReader csvReader = new EventCsvReader(new RawCsvReader());
 		String meetingCsvPath = "/data/meeting.csv";
 		List<Meeting> meetings = csvReader.readMeetings(meetingCsvPath);
 		meetings.forEach(schedule::add);

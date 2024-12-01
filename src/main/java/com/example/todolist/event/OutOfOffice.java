@@ -12,12 +12,11 @@ public class OutOfOffice extends AbstractEvent {
 
     @Override
     protected void update(AbstractAuditableEvent update) {
-
     }
 
     @Override
     public void print() {
-
+        System.out.printf("[外出]　%s : %s ~ %s%n", getTitle(), getStartDate(), getEndDate());
     }
 
     @Override

@@ -17,6 +17,7 @@ public class NoDisturbance extends AbstractEvent {
 
     @Override
     public void print() {
+        System.out.printf("[集中時間]　%s : %s ~ %s%n", getTitle(), getStartDate(), getEndDate());
     }
 
     @Override

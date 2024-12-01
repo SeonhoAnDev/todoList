@@ -4,10 +4,10 @@ import com.example.todolist.event.update.AbstractAuditableEvent;
 
 import java.time.ZonedDateTime;
 
-public class Todo extends AbstractEvent {
+public class ToDo extends AbstractEvent {
     private String description;
 
-    public Todo(int id, String title,
+    public ToDo(int id, String title,
                  ZonedDateTime startDate, ZonedDateTime endDate,
                  String description) {
         super(id, title, startDate, endDate);

@@ -1,6 +1,9 @@
 package com.example.todolist.reader;
 
 import com.example.todolist.event.Meeting;
+import com.example.todolist.event.NoDisturbance;
+import com.example.todolist.event.OutOfOffice;
+import com.example.todolist.event.ToDo;
 import com.opencsv.CSVReader;
 
 import java.io.IOException;
@@ -55,8 +58,94 @@ public class EventCsvReader {
         }
         return result;
     }
+    public List<NoDisturbance> readNoDisturbances(String path) throws IOException {
+        List<NoDisturbance> result = new ArrayList<>();
+
+        List<String[]> read = rawCsvReader.readAll(path);
+        for(int i = 0; i < read.size(); i++){
+            if(skipHeader(i)){
+                continue;
+            }
+
+            String[] each = read.get(i);
+
+            result.add(
+                    new NoDisturbance(
+                            Integer.parseInt(each[0]),
+                            each[2],
+                            ZonedDateTime.of(LocalDateTime.parse(each[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                                    ),
+                                    ZoneId.of("Asia/Tokyo")
+                            ),
+                            ZonedDateTime.of(LocalDateTime.parse(each[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                                    ),
+                                    ZoneId.of("Asia/Tokyo")
+                            )
+                    )
+            );
+        }
+        return result;
+    }
+    public List<OutOfOffice> readOutOfOffices(String path) throws IOException {
+        List<OutOfOffice> result = new ArrayList<>();
+
+        List<String[]> read = rawCsvReader.readAll(path);
+        for(int i = 0; i < read.size(); i++){
+            if(skipHeader(i)){
+                continue;
+            }
+
+            String[] each = read.get(i);
+
+            result.add(
+                    new OutOfOffice(
+                            Integer.parseInt(each[0]),
+                            each[2],
+                            ZonedDateTime.of(LocalDateTime.parse(each[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                                    ),
+                                    ZoneId.of("Asia/Tokyo")
+                            ),
+                            ZonedDateTime.of(LocalDateTime.parse(each[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                                    ),
+                                    ZoneId.of("Asia/Tokyo")
+                            )
+                    )
+            );
+        }
+        return result;
+    }
+    public List<ToDo> readToDos(String path) throws IOException {
+        List<ToDo> result = new ArrayList<>();
+
+        List<String[]> read = rawCsvReader.readAll(path);
+        for(int i = 0; i < read.size(); i++){
+            if(skipHeader(i)){
+                continue;
+            }
+
+            String[] each = read.get(i);
+
+            result.add(
+                    new ToDo(
+                            Integer.parseInt(each[0]),
+                            each[2],
+                            ZonedDateTime.of(LocalDateTime.parse(each[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                                    ),
+                                    ZoneId.of("Asia/Tokyo")
+                            ),
+                            ZonedDateTime.of(LocalDateTime.parse(each[5], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                                    ),
+                                    ZoneId.of("Asia/Tokyo")
+                            ),
+                            each[3]
+                    )
+            );
+        }
+        return result;
+    }
 
     private boolean skipHeader(int i) {
         return i == 0;
     }
+
 }

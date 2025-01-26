@@ -10,6 +10,7 @@ public class NoDisturbance extends AbstractEvent {
         super(id, title, startDate, endDate);
     }
 
+
     @Override
     protected void update(AbstractAuditableEvent update) {
 
@@ -17,6 +18,7 @@ public class NoDisturbance extends AbstractEvent {
 
     @Override
     public void print() {
+        checkIfDeleted();
         System.out.printf("[集中時間]　%s : %s ~ %s%n", getTitle(), getStartDate(), getEndDate());
     }
 

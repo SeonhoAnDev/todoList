@@ -16,6 +16,7 @@ public class OutOfOffice extends AbstractEvent {
 
     @Override
     public void print() {
+        checkIfDeleted();
         System.out.printf("[外出]　%s : %s ~ %s%n", getTitle(), getStartDate(), getEndDate());
     }
 

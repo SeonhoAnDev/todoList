@@ -1,14 +1,15 @@
 package com.example.todolist;
 
 import com.example.todolist.event.*;
+import com.example.todolist.event.update.AbstractAuditableEvent;
+import com.example.todolist.event.update.UpdataMeeting;
 import com.example.todolist.reader.EventCsvReader;
 import com.example.todolist.reader.RawCsvReader;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.IOException;
+import java.time.ZonedDateTime;
 import java.util.List;
 
-@SpringBootApplication
 public class TodoListApplication {
 
 	public static void main(String[] args) throws IOException {
@@ -33,6 +34,25 @@ public class TodoListApplication {
 		List<ToDo> todos = csvReader.readToDos(toDoCsvPath);
 		todos.forEach(schedule::add);
 
+		Meeting meeting = meetings.get(0);
+
+		meeting.print();
+		System.out.println("修正");
+		meeting.validateAndUpdate(
+				new UpdataMeeting(
+						"123",
+						ZonedDateTime.now(),
+						ZonedDateTime.now().plusHours(1),
+						null,
+						"123",
+						"123"
+				)
+		);
+		meeting.print();
+		System.out.println("削除");
+		meeting.delete(true);
+
 		schedule.printAll();
+
 	}
 }

@@ -16,6 +16,7 @@ public class ToDo extends AbstractEvent {
 
     @Override
     public void print() {
+        checkIfDeleted();
         System.out.printf("[タスク] %s : %s%n", getTitle(), description);
     }
 

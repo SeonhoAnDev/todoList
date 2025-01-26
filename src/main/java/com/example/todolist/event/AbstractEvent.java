@@ -4,7 +4,6 @@ import com.example.todolist.event.update.AbstractAuditableEvent;
 
 import java.time.Duration;
 import java.time.ZonedDateTime;
-import java.util.stream.DoubleStream;
 
 public abstract class AbstractEvent implements Event {
     private final int id;
@@ -17,7 +16,7 @@ public abstract class AbstractEvent implements Event {
     private final ZonedDateTime createDate;
     private ZonedDateTime modifiedDate;
 
-    private boolean deletedYn;
+    boolean deletedYn;
 
     protected AbstractEvent(int id, String title,
                             ZonedDateTime startDate, ZonedDateTime endDate) {
@@ -47,6 +46,8 @@ public abstract class AbstractEvent implements Event {
             update(update);
     }
 
+    void checkIfDeleted() { if (deletedYn) { throw new RuntimeException("すでに削除されたタスクです。"); } }
+
     private void defaultUpdate(AbstractAuditableEvent update) {
         this.title = update.getTitle();
         this.startDate = update.getStartDate();
@@ -71,6 +72,30 @@ public abstract class AbstractEvent implements Event {
 
     public ZonedDateTime getEndDate() {
         return endDate;
+    }
+
+    public ZonedDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public ZonedDateTime getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(ZonedDateTime modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public int getId() {
+        return id;
     }
 
 }

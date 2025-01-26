@@ -23,16 +23,14 @@ public class Meeting extends AbstractEvent {
 
     @Override
     public void print(){
-        System.out.printf("[ミーティング]　%s : %s%n", getTitle(), agenda);
+            checkIfDeleted();
+            System.out.printf("[ミーティング]　%s : %s%n", getTitle(), agenda);
     }
+
 
     @Override
     public boolean support(EventType type) {
         return type == EventType.MEETING;
-    }
-
-    public void update(){
-        
     }
 
     @Override

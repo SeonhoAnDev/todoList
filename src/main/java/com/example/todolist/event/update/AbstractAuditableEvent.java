@@ -1,6 +1,5 @@
 package com.example.todolist.event.update;
 
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 public abstract class AbstractAuditableEvent {

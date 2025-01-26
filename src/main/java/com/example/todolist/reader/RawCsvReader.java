@@ -1,6 +1,7 @@
 package com.example.todolist.reader;
 
 import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,6 +15,10 @@ public class RawCsvReader {
         InputStreamReader reader = new InputStreamReader(in, StandardCharsets.UTF_8);
 
         CSVReader csvReader = new CSVReader(reader);
-        return csvReader.readAll();
+        try {
+            return csvReader.readAll();
+        } catch (CsvException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
